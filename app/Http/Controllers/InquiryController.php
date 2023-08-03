@@ -83,8 +83,37 @@ class InquiryController extends Controller
 
     public function putInquiry(Request $request, $inquiryId)
     {
+        $requiredFields = ['title', 'slug', 'content'];
 
-        $inquiry = $this->database->getReference($this->inquiries)->push($postData);
+        foreach ($requiredFields as $field) {
+            if (!$request->has($field) || empty($request->input($field))) {
+                return response()->json(['message' => "The field '{$field}' is required."], 400);
+            }
+        }
+
+        // $url = 'api/thread';
+        // $method = 'post';
+
+        // $postData = [
+        //     'categoryId' => $request->categoryId,
+        //     'title' => $request->title,
+        //     'slug' => $request->slug,
+        //     'content' => $request->content,
+        //     'userId' => $request->userId,
+        //     'createdAt' => $request->createdAt,
+        //     'updatedAt' => $request->updatedAt,
+        // ];
+
+        $postData = [
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'content' => $request->content,
+            'createdAt' => time(),
+            'updatedAt' => time(),
+        ];
+
+
+        $inquiry = $this->database->getReference($this->inquiries.'/'.$inquiryId)->update($postData);
 
 
         if ($inquiry) {

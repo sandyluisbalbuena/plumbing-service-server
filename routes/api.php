@@ -11,7 +11,7 @@ Route::middleware('jwt.auth')->group(function () {
     // inquiryRefs Routes
     Route::get('inquiry', [InquiryController::class, 'getInquiries']);
     Route::post('inquiry', [InquiryController::class, 'postInquiry']);
-    Route::put('inquiry', [InquiryController::class, 'putInquiry']);
+    Route::put('inquiry/{inquiryId}', [InquiryController::class, 'putInquiry']);
     Route::delete('inquiry/{inquiryId}', [InquiryController::class, 'deleteInquiry']);
 });
 
