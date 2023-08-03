@@ -67,6 +67,7 @@ class InquiryController extends Controller
             'createdAt' => time(),
             'updatedAt' => time(),
         ];
+        
         $inquiry = $this->database->getReference($this->inquiries)->push($postData);
 
         // Save the data to the 'apiHistory' reference
