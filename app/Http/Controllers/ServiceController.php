@@ -18,14 +18,14 @@ class ServiceController extends Controller
         return response()->json('wew');
     }
 
-    public function getServices()
+    public function getServicesCategories()
     {
         $services = $this->database->getReference($this->services)->getValue();
 
         return response()->json($services, 200);
     }
 
-    public function postService(Request $request)
+    public function postServiceCategory(Request $request)
     {
         $requiredFields = ['name'];
 
@@ -75,7 +75,7 @@ class ServiceController extends Controller
         }
     }
 
-    public function putService(Request $request, $serviceId)
+    public function putServiceCategory(Request $request, $serviceId)
     {
         $requiredFields = ['name'];
 
@@ -117,7 +117,7 @@ class ServiceController extends Controller
         }
     }
 
-    public function deleteService($serviceId)
+    public function deleteServiceCategory($serviceId)
     {
         $service = $this->database->getReference($this->services.'/'.$serviceId)->remove();
 

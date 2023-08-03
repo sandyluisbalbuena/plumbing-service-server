@@ -15,10 +15,10 @@ Route::middleware('jwt.auth')->group(function () {
 
 
     // serviceRefs Routes
-    Route::get('services', [ServiceController::class, 'getServices']);
-    Route::post('services', [ServiceController::class, 'postService']);
-    Route::post('services/{serviceId}', [ServiceController::class, 'putService']);
-    Route::delete('services/{serviceId}', [ServiceController::class, 'deleteService']);
+    Route::get('serviceCategories', [ServiceController::class, 'getServiceCategories']);
+    Route::post('serviceCategories', [ServiceController::class, 'postServiceCategory']);
+    Route::post('serviceCategories/{serviceId}', [ServiceController::class, 'putServiceCategory']);
+    Route::delete('serviceCategories/{serviceId}', [ServiceController::class, 'deleteServiceCategory']);
 });
 
 Route::get('generate-token', [JWTAuthController::class, 'generateToken']);
