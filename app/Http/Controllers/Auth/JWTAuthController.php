@@ -27,29 +27,59 @@ class JWTAuthController extends Controller
         return response()->json(compact('token'));
     }
 
+    // public function generateToken(Request $request)
+    // {
+    //     $credentials = $request->only('email', 'password');
+
+    //     try {
+    //         if (! $token = JWTAuth::attempt($credentials)) {
+    //             return response()->json(['error' => 'Invalid credentials'], 401);
+    //         }
+    //     } catch (JWTException $e) {
+    //         return response()->json(['error' => 'Could not create token'], 500);
+    //     }
+
+    //     // Set the token's expiration time (e.g., 1 hour from now)
+    //     // $expiration = Carbon::now()->addMinute()->timestamp;
+    //     $expiration = Carbon::now()->addHour()->timestamp;
+
+    //     // Retrieve the user from the database
+    //     $user = User::where('email', $credentials['email'])->first();
+
+    //     // Add the expiration time to the token payload
+    //     $customClaims = ['exp' => $expiration];
+    //     $token = JWTAuth::claims($customClaims)->fromUser($user);
+
+    //     return response()->json(compact('token'));
+    // }
+
     public function generateToken(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        // Retrieve Basic Auth credentials from request headers
+        $credentials = base64_decode(substr($request->header('Authorization'), 6));
+        list($email, $password) = explode(':', $credentials);
 
+        // Rest of your code for token generation
+        // ...
         try {
-            if (! $token = JWTAuth::attempt($credentials)) {
+            if (! $token = JWTAuth::attempt(['email' => $email, 'password' => $password])) {
                 return response()->json(['error' => 'Invalid credentials'], 401);
             }
+
+            // Set the token's expiration time (e.g., 1 hour from now)
+            $expiration = Carbon::now()->addHour()->timestamp;
+
+            // Retrieve the user from the database
+            $user = User::where('email', $email)->first();
+
+            // Add the expiration time to the token payload
+            $customClaims = ['exp' => $expiration];
+            $token = JWTAuth::claims($customClaims)->fromUser($user);
+
+            return response()->json(compact('token'));
         } catch (JWTException $e) {
             return response()->json(['error' => 'Could not create token'], 500);
         }
-
-        // Set the token's expiration time (e.g., 1 hour from now)
-        // $expiration = Carbon::now()->addMinute()->timestamp;
-        $expiration = Carbon::now()->addHour()->timestamp;
-
-        // Retrieve the user from the database
-        $user = User::where('email', $credentials['email'])->first();
-
-        // Add the expiration time to the token payload
-        $customClaims = ['exp' => $expiration];
-        $token = JWTAuth::claims($customClaims)->fromUser($user);
-
-        return response()->json(compact('token'));
     }
+
 }
