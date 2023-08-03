@@ -5,27 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Kreait\Laravel\Firebase\Facades\Firebase;
 
-class InquiryController extends Controller
+class ServiceController extends Controller
 {
     public function __construct()
     {
         $this->database = Firebase::database();
-        $this->inquiries = 'inquiries';
+        $this->services = 'services';
     }
 
-    public function index(){
+    public function index()
+    {
         return response()->json('wew');
     }
 
-    public function getInquiries(){
-        $inquiries = $this->database->getReference($this->inquiries)->getValue();
+    public function getServices()
+    {
+        $services = $this->database->getReference($this->services)->getValue();
 
-        return response()->json($inquiries, 200);
+        return response()->json($services, 200);
     }
 
-    public function postInquiry(Request $request)
+    public function postService(Request $request)
     {
-        $requiredFields = ['title', 'slug', 'content'];
+        $requiredFields = ['name'];
 
         foreach ($requiredFields as $field) {
             if (!$request->has($field) || empty($request->input($field))) {
@@ -47,9 +49,7 @@ class InquiryController extends Controller
         // ];
 
         $postData = [
-            'title' => $request->title,
-            'slug' => $request->slug,
-            'content' => $request->content,
+            'name' => $request->name,
             'createdAt' => time(),
             'updatedAt' => time(),
         ];
@@ -63,21 +63,21 @@ class InquiryController extends Controller
         //     'updatedAt' => time(),
         // ];
 
-        $inquiry = $this->database->getReference($this->inquiries)->push($postData);
+        $service = $this->database->getReference($this->services)->push($postData);
 
         // Save the data to the 'apiHistory' reference
         // $historyRef = $this->database->getReference($this->apiHistorytable)->push($postDataHistory);
 
-        if ($inquiry) {
+        if ($service) {
             return response()->json('success', 200);
         } else {
             return response()->json('fail', 500);
         }
     }
 
-    public function putInquiry(Request $request, $inquiryId)
+    public function putService(Request $request, $serviceId)
     {
-        $requiredFields = ['title', 'slug', 'content'];
+        $requiredFields = ['name'];
 
         // return response()->json($request, 200);
 
@@ -102,28 +102,26 @@ class InquiryController extends Controller
         // ];
 
         $postData = [
-            'title' => $request->title,
-            'slug' => $request->slug,
-            'content' => $request->content,
+            'title' => $request->name,
             'updatedAt' => time(),
         ];
 
 
-        $inquiry = $this->database->getReference($this->inquiries.'/'.$inquiryId)->update($postData);
+        $service = $this->database->getReference($this->services.'/'.$serviceId)->update($postData);
 
 
-        if ($inquiry) {
+        if ($service) {
             return response()->json('success', 200);
         } else {
             return response()->json('fail', 500);
         }
     }
 
-    public function deleteInquiry($inquiryId)
+    public function deleteInquiry($serviceId)
     {
-        $inquiry = $this->database->getReference($this->inquiries.'/'.$inquiryId)->remove();
+        $service = $this->database->getReference($this->services.'/'.$serviceId)->remove();
 
-        if ($inquiry) {
+        if ($service) {
             return response()->json('success', 200);
         } else {
             return response()->json('fail', 500);

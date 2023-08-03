@@ -13,6 +13,13 @@ Route::middleware('jwt.auth')->group(function () {
     Route::post('inquiry', [InquiryController::class, 'postInquiry']);
     Route::post('inquiry/{inquiryId}', [InquiryController::class, 'putInquiry']);
     Route::delete('inquiry/{inquiryId}', [InquiryController::class, 'deleteInquiry']);
+
+
+    // serviceRefs Routes
+    Route::get('service', [InquiryController::class, 'getServices']);
+    Route::post('service', [InquiryController::class, 'postService']);
+    Route::post('service/{serviceId}', [InquiryController::class, 'putService']);
+    Route::delete('service/{serviceId}', [InquiryController::class, 'deleteService']);
 });
 
 Route::get('generate-token', [JWTAuthController::class, 'generateToken']);
