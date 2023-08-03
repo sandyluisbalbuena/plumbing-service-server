@@ -12,7 +12,7 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('inquiry', [InquiryController::class, 'getInquiries']);
     Route::post('inquiry', [InquiryController::class, 'postInquiry']);
     Route::put('inquiry', [InquiryController::class, 'putInquiry']);
-    Route::delete('inquiry', [InquiryController::class, 'deleteInquiry']);
+    Route::delete('inquiry/{inquiryId}', [InquiryController::class, 'deleteInquiry']);
 });
 
 Route::post('generate-token', [JWTAuthController::class, 'generateToken']);
