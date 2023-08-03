@@ -7,8 +7,6 @@ use Kreait\Laravel\Firebase\Facades\Firebase;
 
 class InquiryController extends Controller
 {
-    private $database;
-
     public function __construct()
     {
         $this->database = Firebase::database();
