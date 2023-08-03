@@ -4,8 +4,7 @@ use App\Http\Controllers\InquiryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\JWTAuthController;
-
-
+use App\Http\Controllers\ServiceController;
 
 Route::middleware('jwt.auth')->group(function () {
     // inquiryRefs Routes
@@ -16,10 +15,10 @@ Route::middleware('jwt.auth')->group(function () {
 
 
     // serviceRefs Routes
-    Route::get('service', [InquiryController::class, 'getServices']);
-    Route::post('service', [InquiryController::class, 'postService']);
-    Route::post('service/{serviceId}', [InquiryController::class, 'putService']);
-    Route::delete('service/{serviceId}', [InquiryController::class, 'deleteService']);
+    Route::get('service', [ServiceController::class, 'getServices']);
+    Route::post('service', [ServiceController::class, 'postService']);
+    Route::post('service/{serviceId}', [ServiceController::class, 'putService']);
+    Route::delete('service/{serviceId}', [ServiceController::class, 'deleteService']);
 });
 
 Route::get('generate-token', [JWTAuthController::class, 'generateToken']);
