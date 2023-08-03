@@ -27,3 +27,5 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('inquiry', [InquiryController::class, 'index']);
 });
 
+Route::post('generate-token', [JWTAuthController::class, 'generateToken']);
+
