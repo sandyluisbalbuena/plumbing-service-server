@@ -117,7 +117,7 @@ class ServiceController extends Controller
         }
     }
 
-    public function deleteInquiry($serviceId)
+    public function deleteService($serviceId)
     {
         $service = $this->database->getReference($this->services.'/'.$serviceId)->remove();
 
