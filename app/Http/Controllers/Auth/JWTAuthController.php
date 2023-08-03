@@ -40,7 +40,8 @@ class JWTAuthController extends Controller
         }
 
         // Set the token's expiration time (e.g., 1 hour from now)
-        $expiration = Carbon::now()->addMinute()->timestamp;
+        // $expiration = Carbon::now()->addMinute()->timestamp;
+        $expiration = Carbon::now()->addHour()->timestamp;
 
         // Retrieve the user from the database
         $user = User::where('email', $credentials['email'])->first();
