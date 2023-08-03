@@ -31,13 +31,13 @@ class InquiryController extends Controller
 
     public function postInquiry(Request $request)
     {
-        // $requiredFields = ['categoryId', 'title', 'slug', 'content', 'userId', 'createdAt', 'updatedAt'];
+        $requiredFields = ['title', 'slug', 'content'];
 
-        // foreach ($requiredFields as $field) {
-        //     if (!$request->has($field) || empty($request->input($field))) {
-        //         return response()->json(['message' => "The field '{$field}' is required."], 400);
-        //     }
-        // }
+        foreach ($requiredFields as $field) {
+            if (!$request->has($field) || empty($request->input($field))) {
+                return response()->json(['message' => "The field '{$field}' is required."], 400);
+            }
+        }
 
         // $url = 'api/thread';
         // $method = 'post';
@@ -52,26 +52,51 @@ class InquiryController extends Controller
         //     'updatedAt' => $request->updatedAt,
         // ];
 
-        // $postDataHistory = [
-        //     'userId' => $request->userId,
-        //     'url' => $url,
-        //     'method' => $method,
-        //     'createdAt' => time(),
-        // ];
-
-        // Save the data to the 'threads' reference
         $postData = [
-            'title' => 'sample title',
-            'slug' => 'sample slug',
-            'content' => 'sample content',
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'content' => $request->content,
             'createdAt' => time(),
             'updatedAt' => time(),
         ];
+
+        // Save the data to the 'threads' reference
+        // $postData = [
+        //     'title' => 'sample title',
+        //     'slug' => 'sample slug',
+        //     'content' => 'sample content',
+        //     'createdAt' => time(),
+        //     'updatedAt' => time(),
+        // ];
 
         $inquiry = $this->database->getReference($this->inquiries)->push($postData);
 
         // Save the data to the 'apiHistory' reference
         // $historyRef = $this->database->getReference($this->apiHistorytable)->push($postDataHistory);
+
+        if ($inquiry) {
+            return response()->json('success', 200);
+        } else {
+            return response()->json('fail', 500);
+        }
+    }
+
+    public function putInquiry(Request $request, $inquiryId)
+    {
+
+        $inquiry = $this->database->getReference($this->inquiries)->push($postData);
+
+
+        if ($inquiry) {
+            return response()->json('success', 200);
+        } else {
+            return response()->json('fail', 500);
+        }
+    }
+
+    public function deleteInquiry($inquiryId)
+    {
+        $inquiry = $this->database->getReference($this->inquiries.'/'.$inquiryId)->remove();
 
         if ($inquiry) {
             return response()->json('success', 200);

@@ -5,30 +5,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\JWTAuthController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-// Route::group(['middleware' => 'bearer_auth'], function () {
-// });
 
 
 Route::middleware('jwt.auth')->group(function () {
-    // Your protected routes here
+    // inquiryRefs Routes
     Route::get('inquiry', [InquiryController::class, 'getInquiries']);
     Route::post('inquiry', [InquiryController::class, 'postInquiry']);
-
+    Route::put('inquiry', [InquiryController::class, 'putInquiry']);
+    Route::delete('inquiry', [InquiryController::class, 'deleteInquiry']);
 });
 
 Route::post('generate-token', [JWTAuthController::class, 'generateToken']);
+
+
+
+
+
+
 
