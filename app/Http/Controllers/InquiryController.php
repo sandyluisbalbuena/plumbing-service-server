@@ -9,6 +9,6 @@ class InquiryController extends Controller
     public function index(Request $request){
 
 
-        return response()->json($request);
+        return response()->json('panget mo Ziza');
     }
 }
