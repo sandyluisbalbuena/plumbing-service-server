@@ -85,6 +85,9 @@ class InquiryController extends Controller
     {
         $requiredFields = ['title', 'slug', 'content'];
 
+        return response()->json($request, 200);
+
+
         foreach ($requiredFields as $field) {
             if (!$request->has($field) || empty($request->input($field))) {
                 return response()->json(['message' => "The field '{$field}' is required."], 400);
