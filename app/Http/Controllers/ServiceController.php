@@ -10,6 +10,7 @@ class ServiceController extends Controller
     public function __construct()
     {
         $this->database = Firebase::database();
+        $this->serviceCategories = 'serviceCategories';
         $this->services = 'services';
     }
 
@@ -20,7 +21,7 @@ class ServiceController extends Controller
 
     public function getServiceCategories()
     {
-        $services = $this->database->getReference($this->services)->getValue();
+        $services = $this->database->getReference($this->serviceCategories)->getValue();
 
         return response()->json($services, 200);
     }
@@ -63,7 +64,7 @@ class ServiceController extends Controller
         //     'updatedAt' => time(),
         // ];
 
-        $service = $this->database->getReference($this->services)->push($postData);
+        $service = $this->database->getReference($this->serviceCategories)->push($postData);
 
         // Save the data to the 'apiHistory' reference
         // $historyRef = $this->database->getReference($this->apiHistorytable)->push($postDataHistory);
@@ -107,7 +108,7 @@ class ServiceController extends Controller
         ];
 
 
-        $service = $this->database->getReference($this->services.'/'.$serviceId)->update($postData);
+        $service = $this->database->getReference($this->serviceCategories.'/'.$serviceId)->update($postData);
 
 
         if ($service) {
@@ -119,7 +120,7 @@ class ServiceController extends Controller
 
     public function deleteServiceCategory($serviceId)
     {
-        $service = $this->database->getReference($this->services.'/'.$serviceId)->remove();
+        $service = $this->database->getReference($this->serviceCategories.'/'.$serviceId)->remove();
 
         if ($service) {
             return response()->json('success', 200);
