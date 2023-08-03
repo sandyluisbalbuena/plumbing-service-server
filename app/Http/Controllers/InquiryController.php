@@ -85,7 +85,7 @@ class InquiryController extends Controller
     {
         $requiredFields = ['title', 'slug', 'content'];
 
-        return response()->json($request, 200);
+        // return response()->json($request, 200);
 
 
         foreach ($requiredFields as $field) {
