@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Carbon\Carbon;
 
 class JWTAuthController extends Controller
 {
@@ -36,6 +37,13 @@ class JWTAuthController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'Could not create token'], 500);
         }
+
+        // Set the token's expiration time (e.g., 1 hour from now)
+        $expiration = Carbon::now()->addHour()->timestamp;
+
+        // Add the expiration time to the token payload
+        $customClaims = ['exp' => $expiration];
+        $token = JWTAuth::claims($customClaims)->fromUser($user);
 
         return response()->json(compact('token'));
     }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\InquiryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\JWTAuthController;
 
 /*
 |--------------------------------------------------------------------------
