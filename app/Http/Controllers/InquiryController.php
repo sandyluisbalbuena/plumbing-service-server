@@ -26,10 +26,10 @@ class InquiryController extends Controller
     public function getInquiries(){
         $inquiries = $this->database->getReference($this->inquiries)->getValue();
 
-        return response()->json($inquiries);
+        return response()->json($inquiries, 200);
     }
 
-    public function postthreaddata()
+    public function postInquiry(Request $request)
     {
         // $requiredFields = ['categoryId', 'title', 'slug', 'content', 'userId', 'createdAt', 'updatedAt'];
 
@@ -67,14 +67,14 @@ class InquiryController extends Controller
             'createdAt' => time(),
             'updatedAt' => time(),
         ];
-        
+
         $inquiry = $this->database->getReference($this->inquiries)->push($postData);
 
         // Save the data to the 'apiHistory' reference
         // $historyRef = $this->database->getReference($this->apiHistorytable)->push($postDataHistory);
 
         if ($inquiry) {
-            return response()->json('success');
+            return response()->json('success', 200);
         } else {
             return response()->json('fail', 500);
         }

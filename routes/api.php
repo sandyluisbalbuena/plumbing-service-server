@@ -25,9 +25,10 @@ use App\Http\Controllers\Auth\JWTAuthController;
 
 Route::middleware('jwt.auth')->group(function () {
     // Your protected routes here
-    Route::get('inquiry', [InquiryController::class, 'index']);
+    Route::get('inquiry', [InquiryController::class, 'getInquiries']);
+    Route::post('inquiry', [InquiryController::class, 'postInquiry']);
+
 });
 
 Route::post('generate-token', [JWTAuthController::class, 'generateToken']);
-Route::get('inquirysamplepost', [InquiryController::class, 'postthreaddata']);
 
