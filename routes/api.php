@@ -19,5 +19,11 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 // Route::group(['middleware' => 'bearer_auth'], function () {
-    Route::get('inquiry', [InquiryController::class, 'index']);
 // });
+
+
+Route::middleware('jwt.auth')->group(function () {
+    // Your protected routes here
+    Route::get('inquiry', [InquiryController::class, 'index']);
+});
+
