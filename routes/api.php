@@ -15,7 +15,7 @@ Route::middleware('jwt.auth')->group(function () {
     Route::delete('inquiry/{inquiryId}', [InquiryController::class, 'deleteInquiry']);
 });
 
-Route::post('generate-token', [JWTAuthController::class, 'generateToken']);
+Route::get('generate-token', [JWTAuthController::class, 'generateToken']);
 
 
 
