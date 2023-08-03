@@ -102,7 +102,7 @@ class ServiceController extends Controller
         // ];
 
         $postData = [
-            'title' => $request->name,
+            'name' => $request->name,
             'updatedAt' => time(),
         ];
 
