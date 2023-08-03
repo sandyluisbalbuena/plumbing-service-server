@@ -18,7 +18,7 @@ class ServiceController extends Controller
         return response()->json('wew');
     }
 
-    public function getServicesCategories()
+    public function getServiceCategories()
     {
         $services = $this->database->getReference($this->services)->getValue();
 
