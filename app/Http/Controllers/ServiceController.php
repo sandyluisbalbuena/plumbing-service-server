@@ -28,7 +28,9 @@ class ServiceController extends Controller
 
     public function getServiceCategory($serviceId)
     {
-        return response()->json('sample return '.$serviceId, 200);
+        $service = $this->database->getReference($this->serviceCategories.'/'.$serviceId)->getValue();
+
+        return response()->json($service, 200);
     }
 
     public function postServiceCategory(Request $request)
