@@ -34,7 +34,7 @@ class TestimonialController extends Controller
 
     public function postTestimonial(Request $request)
     {
-        $requiredFields = ['name'];
+        $requiredFields = ['name', 'image', 'comment', 'rating'];
 
         foreach ($requiredFields as $field) {
             if (!$request->has($field) || empty($request->input($field))) {
@@ -57,6 +57,9 @@ class TestimonialController extends Controller
 
         $postData = [
             'name' => $request->name,
+            'image' => $request->image,
+            'comment' => $request->comment,
+            'rating' => $request->rating,
             'createdAt' => time(),
             'updatedAt' => time(),
         ];
