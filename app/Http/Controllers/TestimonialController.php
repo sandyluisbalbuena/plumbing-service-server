@@ -61,7 +61,7 @@ class TestimonialController extends Controller
         //     'updatedAt' => $request->updatedAt,
         // ];
 
-        $factory = (new Factory())->withServiceAccount(__DIR__.'/bib-bayitback-firebase-adminsdk-lkch9-44e22401ec.json');
+        $factory = (new Factory())->withServiceAccount(__DIR__.'/plumbingservices-creds.json');
 
         $database = $factory->createDatabase();
 
