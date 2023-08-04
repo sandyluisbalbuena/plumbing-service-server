@@ -34,13 +34,16 @@ class TestimonialController extends Controller
 
     public function postTestimonial(Request $request)
     {
-        $requiredFields = ['name', 'image', 'comment', 'rating'];
+        // $requiredFields = ['name', 'image', 'comment', 'rating'];
 
-        foreach ($requiredFields as $field) {
-            if (!$request->has($field) || empty($request->input($field))) {
-                return response()->json(['message' => "The field '{$field}' is required."], 400);
-            }
-        }
+        // foreach ($requiredFields as $field) {
+        //     if (!$request->has($field) || empty($request->input($field))) {
+        //         return response()->json(['message' => "The field '{$field}' is required."], 400);
+        //     }
+        // }
+
+
+
 
         // $url = 'api/thread';
         // $method = 'post';
@@ -87,10 +90,8 @@ class TestimonialController extends Controller
 
     public function putTestimonial(Request $request, $testimonialId)
     {
-        $requiredFields = ['name'];
-
+        $requiredFields = ['name', 'image', 'comment', 'rating'];
         // return response()->json($request, 200);
-
 
         foreach ($requiredFields as $field) {
             if (!$request->has($field) || empty($request->input($field))) {
@@ -113,6 +114,9 @@ class TestimonialController extends Controller
 
         $postData = [
             'name' => $request->name,
+            'image' => $request->image,
+            'comment' => $request->comment,
+            'rating' => $request->rating,
             'updatedAt' => time(),
         ];
 
