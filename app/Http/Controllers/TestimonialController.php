@@ -61,7 +61,8 @@ class TestimonialController extends Controller
         //     'updatedAt' => $request->updatedAt,
         // ];
 
-        $factory = (new Factory())->withServiceAccount('/plumbingservices-creds.json');
+        // $factory = (new Factory())->withServiceAccount(__DIR__.'/plumbingservices-creds.json');
+        $factory = (new Factory())->withServiceAccount(env('FIREBASE_CREDENTIALS'));
 
         $database = $factory->createDatabase();
 
