@@ -26,6 +26,11 @@ class ServiceController extends Controller
         return response()->json($services, 200);
     }
 
+    public function getServiceCategory($serviceId)
+    {
+        return response()->json('sample return '.$serviceId, 200);
+    }
+
     public function postServiceCategory(Request $request)
     {
         $requiredFields = ['name'];
