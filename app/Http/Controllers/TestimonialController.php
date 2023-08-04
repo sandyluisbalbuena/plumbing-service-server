@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Kreait\Laravel\Firebase\Facades\Firebase;
-use Kreait\Firebase\Storage;
+use Kreait\Firebase\Factory;
+// use Kreait\Firebase\ServiceAccount;
 
 
 class TestimonialController extends Controller
@@ -47,10 +48,6 @@ class TestimonialController extends Controller
         //         return response()->json(['message' => "The field '{$field}' is required."], 400);
 
 
-    
-
-
-
         // $url = 'api/thread';
         // $method = 'post';
 
@@ -63,6 +60,10 @@ class TestimonialController extends Controller
         //     'createdAt' => $request->createdAt,
         //     'updatedAt' => $request->updatedAt,
         // ];
+
+        $factory = (new Factory())->withServiceAccount(__DIR__.'/bib-bayitback-firebase-adminsdk-lkch9-44e22401ec.json');
+
+        $database = $factory->createDatabase();
 
         $image = $request->file('image');
 
@@ -88,9 +89,6 @@ class TestimonialController extends Controller
             'createdAt' => time(),
             'updatedAt' => time(),
         ];
-
-
-
 
 
         // Save the data to the 'threads' reference
