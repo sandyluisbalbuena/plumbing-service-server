@@ -25,7 +25,18 @@ class InquiryController extends Controller
 
     public function postInquiry(Request $request)
     {
-        $requiredFields = ['title', 'slug', 'content'];
+        $requiredFields = [
+            'firstName', 
+            'lastName', 
+            'email', 
+            'phoneNumber', 
+            'street1', 
+            'city',
+            'province',
+            'postalCode',
+            'serviceDetails',
+            'serviceRequire'
+        ];
 
         foreach ($requiredFields as $field) {
             if (!$request->has($field) || empty($request->input($field))) {
@@ -47,9 +58,16 @@ class InquiryController extends Controller
         // ];
 
         $postData = [
-            'title' => $request->title,
-            'slug' => $request->slug,
-            'content' => $request->content,
+            'firstName' => $request->firstName,
+            'lastName' => $request->lastName,
+            'email' => $request->email,
+            'phoneNumber' => $request->phoneNumber,
+            'street1' => $request->street1,
+            'city' => $request->city,
+            'province' => $request->province,
+            'postalCode' => $request->postalCode,
+            'serviceDetails' => $request->serviceDetails,
+            'serviceRequire' => $request->serviceRequire,
             'createdAt' => time(),
             'updatedAt' => time(),
         ];
