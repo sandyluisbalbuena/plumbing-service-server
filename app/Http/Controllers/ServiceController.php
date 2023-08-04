@@ -23,7 +23,7 @@ class ServiceController extends Controller
     {
         $services = $this->database->getReference($this->serviceCategories)->getValue();
 
-        return response()->json($services, 200);
+        return response()->json(compact('services'), 200);
     }
 
     public function getServiceCategory($serviceId)
