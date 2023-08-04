@@ -64,12 +64,12 @@ class TestimonialController extends Controller
         $factory = (new Factory())->withServiceAccount(base_path('/plumbingservices-creds.json'));
         // $factory = (new Factory())->withServiceAccount(env('FIREBASE_CREDENTIALS'));
 
-        $database = $factory->createDatabase();
+        // $database = $factory->createDatabase();
 
         $image = $request->file('image');
 
         if ($image) {
-            $storage = $database;
+            $storage = $factory->createDatabase();
             $imagePath = 'images/testimonials/' . $image->getClientOriginalName();
             $imageStream = fopen($image->getRealPath(), 'r');
 
