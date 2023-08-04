@@ -55,11 +55,13 @@ class JWTAuthController extends Controller
 
     public function generateToken(Request $request)
     {
+        return response()->json(compact($request), 200);
+
+
         // Retrieve Basic Auth credentials from request headers
         $credentials = base64_decode(substr($request->header('Authorization'), 6));
         list($email, $password) = explode(':', $credentials);
 
-        dd($request);
 
         // Rest of your code for token generation
         // ...
