@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Kreait\Laravel\Firebase\Facades\Firebase;
+use Kreait\Firebase\Storage;
+
 
 class TestimonialController extends Controller
 {
@@ -32,7 +34,7 @@ class TestimonialController extends Controller
         return response()->json(compact('service'), 200);
     }
 
-    public function postTestimonial(Request $request)
+    public function postTestimonial(Request $request, Storage $firebaseStorage)
     {
         // $requiredFields = ['name', 'image', 'comment', 'rating'];
 
@@ -41,6 +43,8 @@ class TestimonialController extends Controller
         //         return response()->json(['message' => "The field '{$field}' is required."], 400);
         //     }
         // }
+
+
 
 
 
@@ -58,14 +62,34 @@ class TestimonialController extends Controller
         //     'updatedAt' => $request->updatedAt,
         // ];
 
+        $image = $request->file('image');
+
+        if ($image) {
+            $storage = $firebaseStorage->getStorage();
+            $imagePath = 'images/testimonials/' . $image->getClientOriginalName();
+            $imageStream = fopen($image->getRealPath(), 'r');
+
+            $storage->getBucket()->upload($imageStream, [
+                'name' => $imagePath,
+            ]);
+
+            $imageUrl = $storage->getBucket()->object($imagePath)->signedUrl(now()->addMinutes(60));
+
+            // return response()->json(['imageUrl' => $imageUrl]);
+        }
+
         $postData = [
             'name' => $request->name,
-            'image' => $request->image,
+            'image' => $imageUrl,
             'comment' => $request->comment,
             'rating' => $request->rating,
             'createdAt' => time(),
             'updatedAt' => time(),
         ];
+
+
+
+
 
         // Save the data to the 'threads' reference
         // $postData = [
