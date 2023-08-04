@@ -43,7 +43,9 @@ class TestimonialController extends Controller
         //         return response()->json(['message' => "The field '{$field}' is required."], 400);
         //     }
         // }
-            dd($request);
+
+        //         return response()->json(['message' => "The field '{$field}' is required."], 400);
+
 
     
 
