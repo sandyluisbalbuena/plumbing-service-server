@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\InquiryController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\JWTAuthController;
 use App\Http\Controllers\ServiceController;
@@ -14,12 +13,14 @@ Route::middleware('jwt.auth')->group(function () {
     Route::delete('inquiries/{inquiryId}', [InquiryController::class, 'deleteInquiry']);
 
 
-    // serviceRefs Routes
+    // serviceCategoryRefs Routes
     Route::get('servicecategories', [ServiceController::class, 'getServiceCategories']);
     Route::post('servicecategories', [ServiceController::class, 'postServiceCategory']);
     Route::get('servicecategories/{serviceId}', [ServiceController::class, 'getServiceCategory']);
     Route::post('servicecategories/{serviceId}', [ServiceController::class, 'putServiceCategory']);
     Route::delete('servicecategories/{serviceId}', [ServiceController::class, 'deleteServiceCategory']);
+
+    
 
 });
 
