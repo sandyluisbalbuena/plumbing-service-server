@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Kreait\Laravel\Firebase\Facades\Firebase;
 use Kreait\Firebase\Factory;
-// use Kreait\Firebase\ServiceAccount;
+use Kreait\Firebase\Contract\Storage;
+
 
 
 class TestimonialController extends Controller
 {
-    public function __construct()
+    public function __construct(Storage $storage)
     {
         $this->database = Firebase::database();
         $this->testimonials = 'testimonials';
+        $this->storage = $storage;
     }
 
     public function index()
@@ -61,19 +63,22 @@ class TestimonialController extends Controller
         //     'updatedAt' => $request->updatedAt,
         // ];
 
-        $factory = (new Factory())->withServiceAccount(base_path('/plumbingservices-creds.json'));
+        // $factory = (new Factory())->withServiceAccount(base_path('/plumbingservices-creds.json'));
         // $factory = (new Factory())->withServiceAccount(env('FIREBASE_CREDENTIALS'));
 
         // $database = $factory->createDatabase();
 
+        $storageClient = $this->storage->getStorageClient();
+        $defaultBucket = $this->storage->getBucket();
+
         $image = $request->file('image');
 
         if ($image) {
-            $storage = $factory->createDatabase();
+            $storage = $storageClient;
             $imagePath = 'images/testimonials/' . $image->getClientOriginalName();
             $imageStream = fopen($image->getRealPath(), 'r');
 
-            $storage->getBucket()->upload($imageStream, [
+            $defaultBucket->upload($imageStream, [
                 'name' => $imagePath,
             ]);
 
