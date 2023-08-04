@@ -59,6 +59,8 @@ class JWTAuthController extends Controller
         $credentials = base64_decode(substr($request->header('Authorization'), 6));
         list($email, $password) = explode(':', $credentials);
 
+        dd($request);
+
         // Rest of your code for token generation
         // ...
         try {

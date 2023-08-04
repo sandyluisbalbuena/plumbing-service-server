@@ -20,15 +20,11 @@ Route::middleware('jwt.auth')->group(function () {
     Route::post('servicecategories/{serviceId}', [ServiceController::class, 'putServiceCategory']);
     Route::delete('servicecategories/{serviceId}', [ServiceController::class, 'deleteServiceCategory']);
 
+
+
     
+
 
 });
 
 Route::get('generate-token', [JWTAuthController::class, 'generateToken']);
-
-
-
-
-
-
-
