@@ -13,11 +13,13 @@ class InquiryController extends Controller
         $this->inquiries = 'inquiries';
     }
 
-    public function index(){
+    public function index()
+    {
         return response()->json('wew');
     }
 
-    public function getInquiries(){
+    public function getInquiries()
+    {
         $inquiries = $this->database->getReference($this->inquiries)->getValue();
 
         return response()->json($inquiries, 200);
@@ -95,7 +97,18 @@ class InquiryController extends Controller
 
     public function putInquiry(Request $request, $inquiryId)
     {
-        $requiredFields = ['title', 'slug', 'content'];
+        $requiredFields = [
+            'firstName', 
+            'lastName', 
+            'email', 
+            'phoneNumber', 
+            'street1', 
+            'city',
+            'province',
+            'postalCode',
+            'serviceDetails',
+            'serviceRequire'
+        ];
 
         // return response()->json($request, 200);
 
@@ -120,9 +133,16 @@ class InquiryController extends Controller
         // ];
 
         $postData = [
-            'title' => $request->title,
-            'slug' => $request->slug,
-            'content' => $request->content,
+            'firstName' => $request->firstName,
+            'lastName' => $request->lastName,
+            'email' => $request->email,
+            'phoneNumber' => $request->phoneNumber,
+            'street1' => $request->street1,
+            'city' => $request->city,
+            'province' => $request->province,
+            'postalCode' => $request->postalCode,
+            'serviceDetails' => $request->serviceDetails,
+            'serviceRequire' => $request->serviceRequire,
             'updatedAt' => time(),
         ];
 
