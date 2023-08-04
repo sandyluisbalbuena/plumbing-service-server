@@ -35,7 +35,7 @@ class TestimonialController extends Controller
         return response()->json(compact('service'), 200);
     }
 
-    public function postTestimonial(Request $request, Storage $firebaseStorage)
+    public function postTestimonial(Request $request)
     {
         // $requiredFields = ['name', 'image', 'comment', 'rating'];
 
@@ -68,7 +68,7 @@ class TestimonialController extends Controller
         $image = $request->file('image');
 
         if ($image) {
-            $storage = $firebaseStorage->getStorage();
+            $storage = $database;
             $imagePath = 'images/testimonials/' . $image->getClientOriginalName();
             $imageStream = fopen($image->getRealPath(), 'r');
 
