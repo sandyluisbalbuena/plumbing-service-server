@@ -55,8 +55,6 @@ class JWTAuthController extends Controller
 
     public function generateToken(Request $request)
     {
-        return response()->json($request->headers, 200);
-
 
         // Retrieve Basic Auth credentials from request headers
         $credentials = base64_decode(substr($request->header('Authorization'), 6));
