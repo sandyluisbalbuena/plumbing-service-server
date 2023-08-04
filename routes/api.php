@@ -17,7 +17,7 @@ Route::middleware('jwt.auth')->group(function () {
     // serviceRefs Routes
     Route::get('servicecategories', [ServiceController::class, 'getServiceCategories']);
     Route::post('servicecategories', [ServiceController::class, 'postServiceCategory']);
-    Route::get('servicecategory/{serviceId}', [ServiceController::class, 'getServiceCategory']);
+    Route::get('servicecategories/{serviceId}', [ServiceController::class, 'getServiceCategory']);
     Route::post('servicecategories/{serviceId}', [ServiceController::class, 'putServiceCategory']);
     Route::delete('servicecategories/{serviceId}', [ServiceController::class, 'deleteServiceCategory']);
 
