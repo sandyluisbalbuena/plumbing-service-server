@@ -23,4 +23,4 @@ Route::middleware('jwt.auth')->group(function () {
 
 });
 
-Route::get('generate-token', [JWTAuthController::class, 'generateToken']);
+Route::post('generate-token', [JWTAuthController::class, 'generateToken']);
