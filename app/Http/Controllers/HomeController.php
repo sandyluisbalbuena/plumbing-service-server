@@ -29,7 +29,7 @@ class HomeController extends Controller
     
 
     public function getUser(){
-        $users = DB::table('user')->get();
+        $users = DB::connection('mysql')->table('users')->get();
 
         // Return the users as JSON
         return response()->json($users);
