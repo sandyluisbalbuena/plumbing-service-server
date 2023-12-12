@@ -7,132 +7,132 @@ use Kreait\Laravel\Firebase\Facades\Firebase;
 
 class ServiceController extends Controller
 {
-    public function __construct()
-    {
-        $this->database = Firebase::database();
-        $this->serviceCategories = 'serviceCategories';
-        $this->services = 'services';
-    }
+    // public function __construct()
+    // {
+    //     $this->database = Firebase::database();
+    //     $this->serviceCategories = 'serviceCategories';
+    //     $this->services = 'services';
+    // }
 
-    public function index()
-    {
-        return response()->json('wew');
-    }
+    // public function index()
+    // {
+    //     return response()->json('wew');
+    // }
 
-    public function getServiceCategories()
-    {
-        $services = $this->database->getReference($this->serviceCategories)->getValue();
+    // public function getServiceCategories()
+    // {
+    //     $services = $this->database->getReference($this->serviceCategories)->getValue();
 
-        return response()->json(compact('services'), 200);
-    }
+    //     return response()->json(compact('services'), 200);
+    // }
 
-    public function getServiceCategory($serviceId)
-    {
-        $service = $this->database->getReference($this->serviceCategories.'/'.$serviceId)->getValue();
+    // public function getServiceCategory($serviceId)
+    // {
+    //     $service = $this->database->getReference($this->serviceCategories.'/'.$serviceId)->getValue();
 
-        return response()->json(compact('service'), 200);
-    }
+    //     return response()->json(compact('service'), 200);
+    // }
 
-    public function postServiceCategory(Request $request)
-    {
-        $requiredFields = ['name'];
+    // public function postServiceCategory(Request $request)
+    // {
+    //     $requiredFields = ['name'];
 
-        foreach ($requiredFields as $field) {
-            if (!$request->has($field) || empty($request->input($field))) {
-                return response()->json(['message' => "The field '{$field}' is required."], 400);
-            }
-        }
+    //     foreach ($requiredFields as $field) {
+    //         if (!$request->has($field) || empty($request->input($field))) {
+    //             return response()->json(['message' => "The field '{$field}' is required."], 400);
+    //         }
+    //     }
 
-        // $url = 'api/thread';
-        // $method = 'post';
+    //     // $url = 'api/thread';
+    //     // $method = 'post';
 
-        // $postData = [
-        //     'categoryId' => $request->categoryId,
-        //     'title' => $request->title,
-        //     'slug' => $request->slug,
-        //     'content' => $request->content,
-        //     'userId' => $request->userId,
-        //     'createdAt' => $request->createdAt,
-        //     'updatedAt' => $request->updatedAt,
-        // ];
+    //     // $postData = [
+    //     //     'categoryId' => $request->categoryId,
+    //     //     'title' => $request->title,
+    //     //     'slug' => $request->slug,
+    //     //     'content' => $request->content,
+    //     //     'userId' => $request->userId,
+    //     //     'createdAt' => $request->createdAt,
+    //     //     'updatedAt' => $request->updatedAt,
+    //     // ];
 
-        $postData = [
-            'name' => $request->name,
-            'createdAt' => time(),
-            'updatedAt' => time(),
-        ];
+    //     $postData = [
+    //         'name' => $request->name,
+    //         'createdAt' => time(),
+    //         'updatedAt' => time(),
+    //     ];
 
-        // Save the data to the 'threads' reference
-        // $postData = [
-        //     'title' => 'sample title',
-        //     'slug' => 'sample slug',
-        //     'content' => 'sample content',
-        //     'createdAt' => time(),
-        //     'updatedAt' => time(),
-        // ];
+    //     // Save the data to the 'threads' reference
+    //     // $postData = [
+    //     //     'title' => 'sample title',
+    //     //     'slug' => 'sample slug',
+    //     //     'content' => 'sample content',
+    //     //     'createdAt' => time(),
+    //     //     'updatedAt' => time(),
+    //     // ];
 
-        $service = $this->database->getReference($this->serviceCategories)->push($postData);
+    //     $service = $this->database->getReference($this->serviceCategories)->push($postData);
 
-        // Save the data to the 'apiHistory' reference
-        // $historyRef = $this->database->getReference($this->apiHistorytable)->push($postDataHistory);
+    //     // Save the data to the 'apiHistory' reference
+    //     // $historyRef = $this->database->getReference($this->apiHistorytable)->push($postDataHistory);
 
-        if ($service) {
-            return response()->json('success', 200);
-        } else {
-            return response()->json('fail', 500);
-        }
-    }
+    //     if ($service) {
+    //         return response()->json('success', 200);
+    //     } else {
+    //         return response()->json('fail', 500);
+    //     }
+    // }
 
-    public function putServiceCategory(Request $request, $serviceId)
-    {
-        $requiredFields = ['name'];
+    // public function putServiceCategory(Request $request, $serviceId)
+    // {
+    //     $requiredFields = ['name'];
 
-        // return response()->json($request, 200);
-
-
-        foreach ($requiredFields as $field) {
-            if (!$request->has($field) || empty($request->input($field))) {
-                return response()->json(['message' => "The field '{$field}' is required."], 400);
-            }
-        }
-
-        // $url = 'api/thread';
-        // $method = 'post';
-
-        // $postData = [
-        //     'categoryId' => $request->categoryId,
-        //     'title' => $request->title,
-        //     'slug' => $request->slug,
-        //     'content' => $request->content,
-        //     'userId' => $request->userId,
-        //     'createdAt' => $request->createdAt,
-        //     'updatedAt' => $request->updatedAt,
-        // ];
-
-        $postData = [
-            'name' => $request->name,
-            'updatedAt' => time(),
-        ];
+    //     // return response()->json($request, 200);
 
 
-        $service = $this->database->getReference($this->serviceCategories.'/'.$serviceId)->update($postData);
+    //     foreach ($requiredFields as $field) {
+    //         if (!$request->has($field) || empty($request->input($field))) {
+    //             return response()->json(['message' => "The field '{$field}' is required."], 400);
+    //         }
+    //     }
+
+    //     // $url = 'api/thread';
+    //     // $method = 'post';
+
+    //     // $postData = [
+    //     //     'categoryId' => $request->categoryId,
+    //     //     'title' => $request->title,
+    //     //     'slug' => $request->slug,
+    //     //     'content' => $request->content,
+    //     //     'userId' => $request->userId,
+    //     //     'createdAt' => $request->createdAt,
+    //     //     'updatedAt' => $request->updatedAt,
+    //     // ];
+
+    //     $postData = [
+    //         'name' => $request->name,
+    //         'updatedAt' => time(),
+    //     ];
 
 
-        if ($service) {
-            return response()->json('success', 200);
-        } else {
-            return response()->json('fail', 500);
-        }
-    }
+    //     $service = $this->database->getReference($this->serviceCategories.'/'.$serviceId)->update($postData);
 
-    public function deleteServiceCategory($serviceId)
-    {
-        $service = $this->database->getReference($this->serviceCategories.'/'.$serviceId)->remove();
 
-        if ($service) {
-            return response()->json('success', 200);
-        } else {
-            return response()->json('fail', 500);
-        }
-    }
+    //     if ($service) {
+    //         return response()->json('success', 200);
+    //     } else {
+    //         return response()->json('fail', 500);
+    //     }
+    // }
+
+    // public function deleteServiceCategory($serviceId)
+    // {
+    //     $service = $this->database->getReference($this->serviceCategories.'/'.$serviceId)->remove();
+
+    //     if ($service) {
+    //         return response()->json('success', 200);
+    //     } else {
+    //         return response()->json('fail', 500);
+    //     }
+    // }
 }

@@ -11,34 +11,34 @@ use Kreait\Firebase\Contract\Storage;
 
 class TestimonialController extends Controller
 {
-    public function __construct(Storage $storage)
-    {
-        $this->database = Firebase::database();
-        $this->testimonials = 'testimonials';
-        $this->storage = $storage;
-    }
+    // public function __construct(Storage $storage)
+    // {
+    //     $this->database = Firebase::database();
+    //     $this->testimonials = 'testimonials';
+    //     $this->storage = $storage;
+    // }
 
-    public function index()
-    {
-        return response()->json('wew');
-    }
+    // public function index()
+    // {
+    //     return response()->json('wew');
+    // }
 
-    public function getTestimonials()
-    {
-        $services = $this->database->getReference($this->testimonials)->getValue();
+    // public function getTestimonials()
+    // {
+    //     $services = $this->database->getReference($this->testimonials)->getValue();
 
-        return response()->json(compact('services'), 200);
-    }
+    //     return response()->json(compact('services'), 200);
+    // }
 
-    public function getTestimonial($testimonialId)
-    {
-        $service = $this->database->getReference($this->testimonials.'/'.$testimonialId)->getValue();
+    // public function getTestimonial($testimonialId)
+    // {
+    //     $service = $this->database->getReference($this->testimonials.'/'.$testimonialId)->getValue();
 
-        return response()->json(compact('service'), 200);
-    }
+    //     return response()->json(compact('service'), 200);
+    // }
 
-    public function postTestimonial(Request $request)
-    {
+    // public function postTestimonial(Request $request)
+    // {
         // $requiredFields = ['name', 'image', 'comment', 'rating'];
 
         // foreach ($requiredFields as $field) {
@@ -68,33 +68,33 @@ class TestimonialController extends Controller
 
         // $database = $factory->createDatabase();
 
-        $storageClient = $this->storage->getStorageClient();
-        $defaultBucket = $this->storage->getBucket();
+        // $storageClient = $this->storage->getStorageClient();
+        // $defaultBucket = $this->storage->getBucket();
 
-        $image = $request->file('image');
+        // $image = $request->file('image');
 
-        if ($image) {
-            $storage = $storageClient;
-            $imagePath = 'images/testimonials/' . $image->getClientOriginalName();
-            $imageStream = fopen($image->getRealPath(), 'r');
+        // if ($image) {
+        //     $storage = $storageClient;
+        //     $imagePath = 'images/testimonials/' . $image->getClientOriginalName();
+        //     $imageStream = fopen($image->getRealPath(), 'r');
 
-            $defaultBucket->upload($imageStream, [
-                'name' => $imagePath,
-            ]);
+        //     $defaultBucket->upload($imageStream, [
+        //         'name' => $imagePath,
+        //     ]);
 
-            $imageUrl = $storage->getBucket()->object($imagePath)->signedUrl(now()->addMinutes(60));
+        //     $imageUrl = $storage->getBucket()->object($imagePath)->signedUrl(now()->addMinutes(60));
 
             // return response()->json(['imageUrl' => $imageUrl]);
-        }
+        // }
 
-        $postData = [
-            'name' => $request->name,
-            'image' => $imageUrl,
-            'comment' => $request->comment,
-            'rating' => $request->rating,
-            'createdAt' => time(),
-            'updatedAt' => time(),
-        ];
+        // $postData = [
+        //     'name' => $request->name,
+        //     'image' => $imageUrl,
+        //     'comment' => $request->comment,
+        //     'rating' => $request->rating,
+        //     'createdAt' => time(),
+        //     'updatedAt' => time(),
+        // ];
 
 
         // Save the data to the 'threads' reference
@@ -106,69 +106,69 @@ class TestimonialController extends Controller
         //     'updatedAt' => time(),
         // ];
 
-        $service = $this->database->getReference($this->testimonials)->push($postData);
+        // $service = $this->database->getReference($this->testimonials)->push($postData);
 
         // Save the data to the 'apiHistory' reference
         // $historyRef = $this->database->getReference($this->apiHistorytable)->push($postDataHistory);
 
-        if ($service) {
-            return response()->json('success', 200);
-        } else {
-            return response()->json('fail', 500);
-        }
-    }
+    //     if ($service) {
+    //         return response()->json('success', 200);
+    //     } else {
+    //         return response()->json('fail', 500);
+    //     }
+    // }
 
-    public function putTestimonial(Request $request, $testimonialId)
-    {
-        $requiredFields = ['name', 'image', 'comment', 'rating'];
-        // return response()->json($request, 200);
+    // public function putTestimonial(Request $request, $testimonialId)
+    // {
+    //     $requiredFields = ['name', 'image', 'comment', 'rating'];
+    //     // return response()->json($request, 200);
 
-        foreach ($requiredFields as $field) {
-            if (!$request->has($field) || empty($request->input($field))) {
-                return response()->json(['message' => "The field '{$field}' is required."], 400);
-            }
-        }
+    //     foreach ($requiredFields as $field) {
+    //         if (!$request->has($field) || empty($request->input($field))) {
+    //             return response()->json(['message' => "The field '{$field}' is required."], 400);
+    //         }
+    //     }
 
-        // $url = 'api/thread';
-        // $method = 'post';
+    //     // $url = 'api/thread';
+    //     // $method = 'post';
 
-        // $postData = [
-        //     'categoryId' => $request->categoryId,
-        //     'title' => $request->title,
-        //     'slug' => $request->slug,
-        //     'content' => $request->content,
-        //     'userId' => $request->userId,
-        //     'createdAt' => $request->createdAt,
-        //     'updatedAt' => $request->updatedAt,
-        // ];
+    //     // $postData = [
+    //     //     'categoryId' => $request->categoryId,
+    //     //     'title' => $request->title,
+    //     //     'slug' => $request->slug,
+    //     //     'content' => $request->content,
+    //     //     'userId' => $request->userId,
+    //     //     'createdAt' => $request->createdAt,
+    //     //     'updatedAt' => $request->updatedAt,
+    //     // ];
 
-        $postData = [
-            'name' => $request->name,
-            'image' => $request->image,
-            'comment' => $request->comment,
-            'rating' => $request->rating,
-            'updatedAt' => time(),
-        ];
-
-
-        $service = $this->database->getReference($this->testimonials.'/'.$testimonialId)->update($postData);
+    //     $postData = [
+    //         'name' => $request->name,
+    //         'image' => $request->image,
+    //         'comment' => $request->comment,
+    //         'rating' => $request->rating,
+    //         'updatedAt' => time(),
+    //     ];
 
 
-        if ($service) {
-            return response()->json('success', 200);
-        } else {
-            return response()->json('fail', 500);
-        }
-    }
+    //     $service = $this->database->getReference($this->testimonials.'/'.$testimonialId)->update($postData);
 
-    public function deleteTestimonial($testimonialId)
-    {
-        $service = $this->database->getReference($this->testimonials.'/'.$testimonialId)->remove();
 
-        if ($service) {
-            return response()->json('success', 200);
-        } else {
-            return response()->json('fail', 500);
-        }
-    }
+    //     if ($service) {
+    //         return response()->json('success', 200);
+    //     } else {
+    //         return response()->json('fail', 500);
+    //     }
+    // }
+
+    // public function deleteTestimonial($testimonialId)
+    // {
+    //     $service = $this->database->getReference($this->testimonials.'/'.$testimonialId)->remove();
+
+    //     if ($service) {
+    //         return response()->json('success', 200);
+    //     } else {
+    //         return response()->json('fail', 500);
+    //     }
+    // }
 }
